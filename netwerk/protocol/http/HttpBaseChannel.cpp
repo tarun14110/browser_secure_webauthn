@@ -551,6 +551,14 @@ HttpBaseChannel::SetOwner(nsISupports* aOwner) {
   return NS_OK;
 }
 
+
+NS_IMETHODIMP
+HttpBaseChannel::SetSecureWebAuthnParams(nsACString* webauthn_req_) {
+  webauthn_req = webauthn_req_;
+  return NS_OK;
+}
+
+
 NS_IMETHODIMP
 HttpBaseChannel::SetLoadInfo(nsILoadInfo* aLoadInfo) {
   MOZ_RELEASE_ASSERT(aLoadInfo, "loadinfo can't be null");
@@ -1676,6 +1684,12 @@ HttpBaseChannel::GetProxyURI(nsIURI** aOut) {
   nsCOMPtr<nsIURI> result(mProxyURI);
   result.forget(aOut);
   return NS_OK;
+}
+
+
+nsACString
+HttpBaseChannel::GetSecureWebAuthnParams() {
+  return webauthn_req;
 }
 
 NS_IMETHODIMP

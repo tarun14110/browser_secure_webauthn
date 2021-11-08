@@ -7,3 +7,6 @@
 # to the top of your mozconfig file.
 
 ac_add_options --enable-application=browser
+
+# Enable debug builds
+ac_add_options --enable-debug

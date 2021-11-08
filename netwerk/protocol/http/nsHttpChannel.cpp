@@ -389,6 +389,10 @@ nsHttpChannel::LogMimeTypeMismatch(const nsACString& aMessageName,
 nsresult nsHttpChannel::PrepareToConnect() {
   LOG(("nsHttpChannel::PrepareToConnect [this=%p]\n", this));
 
+   printf("intercepting req");
+  printf("nsHttpChannel::PrepareToConnect [this=%p]\n", this);
+  
+
   AddCookiesToRequest();
 
 #ifdef XP_WIN
@@ -2084,6 +2088,16 @@ nsresult nsHttpChannel::ProcessResponse() {
              "content unless we are racing the network and cache");
 
   ProcessSSLInformation();
+
+nsAutoCString webauthn_req;
+ mResponseHead->GetHeader(nsHttp::WebAuthn_Req, webauthn_req);
+
+SetSecureWebAuthnParams(webauthn_req);
+
+
+//  printf("intercepting webauthn header");
+// printf(("%s\n", webauthn_req.get()));
+
 
   // notify "http-on-examine-response" observers
   gHttpHandler->OnExamineResponse(this);
@@ -6733,6 +6747,14 @@ NS_IMETHODIMP
 nsHttpChannel::GetRequestMethod(nsACString& aMethod) {
   return HttpBaseChannel::GetRequestMethod(aMethod);
 }
+
+
+NS_IMETHODIMP
+nsHttpChannel::SetSecureWebAuthnParams(nsACString& webauthn_req) {
+  return HttpBaseChannel::SetSecureWebAuthnParams(webauthn_req);
+}
+
+
 
 //-----------------------------------------------------------------------------
 // nsHttpChannel::nsIRequestObserver

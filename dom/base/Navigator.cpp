@@ -2095,6 +2095,17 @@ CredentialsContainer* Navigator::Credentials() {
   if (!mCredentials) {
     mCredentials = new CredentialsContainer(GetWindow());
   }
+ 
+  nsCOMPtr<Document> doc = mWindow->GetExtantDoc();
+  if (doc) {
+      nsCOMPtr<nsIHttpChannel> httpChannel = do_QueryInterface(doc->GetChannel());
+      if (httpChannel) {
+          mCredentials->SetWebAuthnReq(httpChannel->GetSecureWebAuthnParams());
+      }
+  }
+ 
+
+
   return mCredentials;
 }
 

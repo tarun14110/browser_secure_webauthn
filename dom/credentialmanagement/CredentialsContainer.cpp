@@ -12,6 +12,7 @@
 #include "nsContentUtils.h"
 #include "nsFocusManager.h"
 #include "nsIDocShell.h"
+#include "nsIHttpChannel.h"
 
 namespace mozilla::dom {
 
@@ -90,6 +91,10 @@ CredentialsContainer::CredentialsContainer(nsPIDOMWindowInner* aParent)
 }
 
 CredentialsContainer::~CredentialsContainer() = default;
+
+void CredentialsContainer::SetWebAuthnReq(nsAutoCString* webauthn_req_) {
+  webauthn_req = webauthn_req_;
+}
 
 void CredentialsContainer::EnsureWebAuthnManager() {
   MOZ_ASSERT(NS_IsMainThread());

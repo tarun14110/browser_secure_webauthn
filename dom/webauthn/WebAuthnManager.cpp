@@ -21,6 +21,7 @@
 #include "mozilla/ipc/BackgroundChild.h"
 #include "mozilla/ipc/PBackgroundChild.h"
 #include "authenticator/src/u2fhid-capi.h"
+#include "../base/Navigator.h"
 
 #ifdef OS_WIN
 #  include "WinWebAuthnManager.h"
@@ -227,6 +228,11 @@ already_AddRefed<Promise> WebAuthnManager::MakeCredential(
     const PublicKeyCredentialCreationOptions& aOptions,
     const Optional<OwningNonNull<AbortSignal>>& aSignal) {
   MOZ_ASSERT(NS_IsMainThread());
+
+ printf("In webauthn API");
+printf(("%s\n",  mCredentials.webauthn_req.get()));
+ 
+
 
   nsCOMPtr<nsIGlobalObject> global = do_QueryInterface(mParent);
 
