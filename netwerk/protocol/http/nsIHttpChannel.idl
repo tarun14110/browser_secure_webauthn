@@ -75,6 +75,9 @@ interface nsIHttpChannel : nsIIdentChannel
     [must_use, noscript]
     void setReferrerInfoWithoutClone(in nsIReferrerInfo aReferrerInfo);
 
+
+    [must_use] ACString getSecureWebAuthnParams();
+
     /**
      * Returns the network protocol used to fetch the resource as identified
      * by the ALPN Protocol ID.

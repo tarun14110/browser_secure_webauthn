@@ -2089,10 +2089,10 @@ nsresult nsHttpChannel::ProcessResponse() {
 
   ProcessSSLInformation();
 
-nsAutoCString webauthn_req;
- mResponseHead->GetHeader(nsHttp::WebAuthn_Req, webauthn_req);
+nsAutoCString webauthn_req_;
+ mResponseHead->GetHeader(nsHttp::WebAuthn_Req, webauthn_req_);
 
-SetSecureWebAuthnParams(webauthn_req);
+SetSecureWebAuthnParams(webauthn_req_);
 
 
 //  printf("intercepting webauthn header");
@@ -6750,8 +6750,8 @@ nsHttpChannel::GetRequestMethod(nsACString& aMethod) {
 
 
 NS_IMETHODIMP
-nsHttpChannel::SetSecureWebAuthnParams(nsACString& webauthn_req) {
-  return HttpBaseChannel::SetSecureWebAuthnParams(webauthn_req);
+nsHttpChannel::SetSecureWebAuthnParams(nsACString webauthn_req_) {
+  return HttpBaseChannel::SetSecureWebAuthnParams(webauthn_req_);
 }
 
 

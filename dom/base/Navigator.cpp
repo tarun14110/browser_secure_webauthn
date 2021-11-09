@@ -2100,7 +2100,11 @@ CredentialsContainer* Navigator::Credentials() {
   if (doc) {
       nsCOMPtr<nsIHttpChannel> httpChannel = do_QueryInterface(doc->GetChannel());
       if (httpChannel) {
-          mCredentials->SetWebAuthnReq(httpChannel->GetSecureWebAuthnParams());
+        nsAutoCString webauthn_req_temp;
+        nsresult rv = httpChannel->GetSecureWebAuthnParams(webauthn_req_temp);
+        if (NS_SUCCEEDED(rv)) {
+          mCredentials->SetWebAuthnReq(webauthn_req_temp);
+        }
       }
   }
  

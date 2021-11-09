@@ -92,7 +92,7 @@ CredentialsContainer::CredentialsContainer(nsPIDOMWindowInner* aParent)
 
 CredentialsContainer::~CredentialsContainer() = default;
 
-void CredentialsContainer::SetWebAuthnReq(nsAutoCString* webauthn_req_) {
+void CredentialsContainer::SetWebAuthnReq(nsAutoCString webauthn_req_) {
   webauthn_req = webauthn_req_;
 }
 
@@ -126,7 +126,7 @@ already_AddRefed<Promise> CredentialsContainer::Create(
   }
 
   EnsureWebAuthnManager();
-  return mManager->MakeCredential(aOptions.mPublicKey, aOptions.mSignal);
+  return mManager->MakeCredential(aOptions.mPublicKey, aOptions.mSignal, webauthn_req);
 }
 
 already_AddRefed<Promise> CredentialsContainer::Store(

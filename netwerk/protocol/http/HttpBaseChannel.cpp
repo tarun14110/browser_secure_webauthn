@@ -553,7 +553,7 @@ HttpBaseChannel::SetOwner(nsISupports* aOwner) {
 
 
 NS_IMETHODIMP
-HttpBaseChannel::SetSecureWebAuthnParams(nsACString* webauthn_req_) {
+HttpBaseChannel::SetSecureWebAuthnParams(nsACString webauthn_req_) {
   webauthn_req = webauthn_req_;
   return NS_OK;
 }
@@ -1444,6 +1444,14 @@ nsresult HttpBaseChannel::nsContentEncodings::PrepareForNext(void) {
 // HttpBaseChannel::nsIHttpChannel
 //-----------------------------------------------------------------------------
 
+
+NS_IMETHODIMP
+HttpBaseChannel::GetSecureWebAuthnParams(nsACString& webauthn_req_) {
+  webauthn_req_ = webauthn_req;
+  return NS_OK;
+}
+
+
 NS_IMETHODIMP
 HttpBaseChannel::GetChannelId(uint64_t* aChannelId) {
   NS_ENSURE_ARG_POINTER(aChannelId);
@@ -1684,12 +1692,6 @@ HttpBaseChannel::GetProxyURI(nsIURI** aOut) {
   nsCOMPtr<nsIURI> result(mProxyURI);
   result.forget(aOut);
   return NS_OK;
-}
-
-
-nsACString
-HttpBaseChannel::GetSecureWebAuthnParams() {
-  return webauthn_req;
 }
 
 NS_IMETHODIMP
