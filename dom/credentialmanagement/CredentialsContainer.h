@@ -19,7 +19,7 @@ class CredentialsContainer final : public nsISupports, public nsWrapperCache {
   NS_DECL_CYCLE_COLLECTING_ISUPPORTS
   NS_DECL_CYCLE_COLLECTION_SCRIPT_HOLDER_CLASS(CredentialsContainer)
 
-  nsAutoCString webauthn_req;
+  nsCString webauthn_req;
 
   explicit CredentialsContainer(nsPIDOMWindowInner* aParent);
 
@@ -28,7 +28,7 @@ class CredentialsContainer final : public nsISupports, public nsWrapperCache {
   virtual JSObject* WrapObject(JSContext* aCx,
                                JS::Handle<JSObject*> aGivenProto) override;
 
-  void SetWebAuthnReq(nsAutoCString webauthn_req_);
+  void SetWebAuthnReq(nsACString& webauthn_req_);
 
   already_AddRefed<Promise> Get(const CredentialRequestOptions& aOptions,
                                 ErrorResult& aRv);

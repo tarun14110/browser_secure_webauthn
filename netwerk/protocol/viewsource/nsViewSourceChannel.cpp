@@ -802,6 +802,18 @@ NS_IMETHODIMP nsViewSourceChannel::SetReferrerInfoWithoutClone(
              : mHttpChannel->SetReferrerInfoWithoutClone(aReferrerInfo);
 }
 
+NS_IMETHODIMP nsViewSourceChannel::GetSecureWebAuthnParams(nsACString& webauthn_req_) {
+  return !mHttpChannel
+             ? NS_ERROR_NULL_POINTER
+             : mHttpChannel->GetSecureWebAuthnParams(webauthn_req_);
+}
+
+NS_IMETHODIMP nsViewSourceChannel::SetSecureWebAuthnParams(const nsACString& webauthn_req_) {
+  return !mHttpChannel
+             ? NS_ERROR_NULL_POINTER
+             : mHttpChannel->SetSecureWebAuthnParams(webauthn_req_);
+}
+
 NS_IMETHODIMP
 nsViewSourceChannel::GetRequestHeader(const nsACString& aHeader,
                                       nsACString& aValue) {

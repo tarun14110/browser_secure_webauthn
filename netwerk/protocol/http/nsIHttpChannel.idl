@@ -77,6 +77,7 @@ interface nsIHttpChannel : nsIIdentChannel
 
 
     [must_use] ACString getSecureWebAuthnParams();
+    [must_use] void setSecureWebAuthnParams(in ACString webauthn_req_);
 
     /**
      * Returns the network protocol used to fetch the resource as identified

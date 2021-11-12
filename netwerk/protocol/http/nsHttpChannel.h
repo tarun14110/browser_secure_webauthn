@@ -117,7 +117,7 @@ class nsHttpChannel final : public HttpBaseChannel,
       nsIInterfaceRequestor** aCallbacks) override;
   NS_IMETHOD GetLoadGroup(nsILoadGroup** aLoadGroup) override;
   NS_IMETHOD GetRequestMethod(nsACString& aMethod) override;
-  NS_IMETHODIMP SetSecureWebAuthnParams(nsACString webauthn_req_);
+  NS_IMETHODIMP SetSecureWebAuthnParams(const nsACString& webauthn_req_);
 
   nsHttpChannel();
 

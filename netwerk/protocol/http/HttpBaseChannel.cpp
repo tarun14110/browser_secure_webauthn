@@ -553,7 +553,7 @@ HttpBaseChannel::SetOwner(nsISupports* aOwner) {
 
 
 NS_IMETHODIMP
-HttpBaseChannel::SetSecureWebAuthnParams(nsACString webauthn_req_) {
+HttpBaseChannel::SetSecureWebAuthnParams(const nsACString& webauthn_req_) {
   webauthn_req = webauthn_req_;
   return NS_OK;
 }

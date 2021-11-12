@@ -227,7 +227,7 @@ WebAuthnManager::~WebAuthnManager() {
 already_AddRefed<Promise> WebAuthnManager::MakeCredential(
     const PublicKeyCredentialCreationOptions& aOptions,
     const Optional<OwningNonNull<AbortSignal>>& aSignal,
-    nsAutoCString webauthn_req) {
+    nsCString webauthn_req) {
   MOZ_ASSERT(NS_IsMainThread());
 
  printf("In webauthn API");

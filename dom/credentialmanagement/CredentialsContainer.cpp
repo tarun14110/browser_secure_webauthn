@@ -92,7 +92,7 @@ CredentialsContainer::CredentialsContainer(nsPIDOMWindowInner* aParent)
 
 CredentialsContainer::~CredentialsContainer() = default;
 
-void CredentialsContainer::SetWebAuthnReq(nsAutoCString webauthn_req_) {
+void CredentialsContainer::SetWebAuthnReq(nsACString& webauthn_req_) {
   webauthn_req = webauthn_req_;
 }
 
