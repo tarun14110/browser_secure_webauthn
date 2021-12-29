@@ -2096,16 +2096,44 @@ CredentialsContainer* Navigator::Credentials() {
     mCredentials = new CredentialsContainer(GetWindow());
   }
  
+
+  // Copy the User-Agent header from the document channel which has already been
+  // // subject to UA overrides.
+  // nsCOMPtr<Document> doc = aWindow->GetExtantDoc();
+  // if (!doc) {
+  //   return NS_OK;
+  // }
+  // nsCOMPtr<nsIHttpChannel> httpChannel = do_QueryInterface(doc->GetChannel());
+  // if (httpChannel) {
+  //   nsAutoCString userAgent;
+  //   rv = httpChannel->GetRequestHeader("User-Agent"_ns, userAgent);
+  //   if (NS_WARN_IF(NS_FAILED(rv))) {
+  //     return rv;
+  //   }
+  //   CopyASCIItoUTF16(userAgent, aUserAgent);
+  // }
+
+ 
   nsCOMPtr<Document> doc = mWindow->GetExtantDoc();
   if (doc) {
       nsCOMPtr<nsIHttpChannel> httpChannel = do_QueryInterface(doc->GetChannel());
       if (httpChannel) {
         nsCString webauthn_req_temp;
-        nsresult rv = httpChannel->GetSecureWebAuthnParams(webauthn_req_temp);
+        // nsresult rv = httpChannel->GetSecureWebAuthnParams(webauthn_req_temp);
+        // nsresult rv = httpChannel->GetRequestHeader("User-Agent"_ns, webauthn_req_temp);
+         nsresult  rv = httpChannel->GetRequestHeader("webauthn_req"_ns, webauthn_req_temp);
         printf("Innnnnn Navigator");
         if (NS_SUCCEEDED(rv)) {
           printf(("yolo%spolo\n", webauthn_req_temp.get()));
-          mCredentials->SetWebAuthnReq(webauthn_req_temp);
+          printf("polo");
+          // printf()
+          // mCredentials->SetWebAuthnReq(webauthn_req_temp);
+    
+    // if (NS_WARN_IF(NS_FAILED(rv))) {
+    //   return rv;
+    // }
+
+
         } else {
           printf("unsuccesful");
         }

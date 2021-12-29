@@ -1703,6 +1703,19 @@ HttpBaseChannel::GetRequestHeader(const nsACString& aHeader,
   // hitting the http atom hash table.
   nsHttpAtom atom = nsHttp::ResolveAtom(aHeader);
   if (!atom) return NS_ERROR_NOT_AVAILABLE;
+  printf("BASSSSSSSSEEE");
+
+  nsCString temp_result;
+  temp_result = aHeader;
+  // CopyUTF8toUTF16(aHeader, temp_result);
+  printf(("%sn", temp_result.get()));
+  if (strcmp(temp_result.get(),"webauthn_req") == 0) {
+    printf("in IFFF");
+    // NS_ConvertUTF16toUTF8(temp_result);
+      // aValue = webauthn_req;
+    // CopyUTF16toUTF8(u"ENCRYPTED_webautn"_ns, aValue);
+    return NS_OK;
+  }
 
   return mRequestHead.GetHeader(atom, aValue);
 }
