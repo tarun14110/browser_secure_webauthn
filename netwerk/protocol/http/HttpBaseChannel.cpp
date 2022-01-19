@@ -1703,20 +1703,6 @@ HttpBaseChannel::GetRequestHeader(const nsACString& aHeader,
   // hitting the http atom hash table.
   nsHttpAtom atom = nsHttp::ResolveAtom(aHeader);
   if (!atom) return NS_ERROR_NOT_AVAILABLE;
-  printf("BASSSSSSSSEEE");
-
-  nsCString temp_result;
-  temp_result = aHeader;
-  // CopyUTF8toUTF16(aHeader, temp_result);
-  printf(("%sn", temp_result.get()));
-  if (strcmp(temp_result.get(),"webauthn_req") == 0) {
-    printf("in IFFF");
-    // NS_ConvertUTF16toUTF8(temp_result);
-      // aValue = webauthn_req;
-    // CopyUTF16toUTF8(u"ENCRYPTED_webautn"_ns, aValue);
-    return NS_OK;
-  }
-
   return mRequestHead.GetHeader(atom, aValue);
 }
 
@@ -1791,9 +1777,30 @@ HttpBaseChannel::GetResponseHeader(const nsACString& header,
   value.Truncate();
 
   if (!mResponseHead) return NS_ERROR_NOT_AVAILABLE;
-
   nsHttpAtom atom = nsHttp::ResolveAtom(header);
   if (!atom) return NS_ERROR_NOT_AVAILABLE;
+
+  printf("BASSSSSSSSEEE---------------------------");
+
+  nsCString tempValue;
+  mResponseHead->GetHeader(atom, tempValue);
+
+  nsCString temp_result;
+  temp_result = header;
+  // CopyUTF8toUTF16(aHeader, temp_result);
+  printf(("%sn", temp_result.get()));
+  if (strcmp(temp_result.get(),"webauthn_req") == 0) {
+    printf("in IFFF*******");
+
+    printf("%s", tempValue.get());
+    printf("%s", webauthn_req.get());
+    printf("palala");
+
+    // NS_ConvertUTF16toUTF8(temp_result);
+      // aValue = webauthn_req;
+    // CopyUTF16toUTF8(u"ENCRYPTED_webautn"_ns, aValue);
+    return NS_OK;
+  }
 
   return mResponseHead->GetHeader(atom, value);
 }
