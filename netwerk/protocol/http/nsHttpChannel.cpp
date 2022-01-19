@@ -1995,6 +1995,24 @@ nsresult nsHttpChannel::ProcessResponse() {
   LOG(("nsHttpChannel::ProcessResponse [this=%p httpStatus=%u]\n", this,
        httpStatus));
 
+
+  nsCString webauthn_req_;
+  mResponseHead->GetHeader(nsHttp::WebAuthn_Req, webauthn_req_);
+
+  SetSecureWebAuthnParams(webauthn_req_);
+
+  printf("intercepting webauthn header");
+  printf(("%s\n", webauthn_req.get()));
+
+  // mResponseHead->GetHeader(nsHttp::WebAuthn_Req, webauthn_req_);
+  nsCString webauthn_req2_;
+  mResponseHead->SetHeader(nsHttp::WebAuthn_Req, "junkValue"_ns);
+  printf("intercepting webauthn header after CHANGES--------------------");
+  
+  mResponseHead->GetHeader(nsHttp::WebAuthn_Req, webauthn_req2_);
+  printf(("%s\n", webauthn_req2_.get()));
+  
+
   // Gather data on whether the transaction and page (if this is
   // the initial page load) is being loaded with SSL.
   Telemetry::Accumulate(Telemetry::HTTP_TRANSACTION_IS_SSL,
@@ -2088,14 +2106,6 @@ nsresult nsHttpChannel::ProcessResponse() {
              "content unless we are racing the network and cache");
 
   ProcessSSLInformation();
-
-  nsCString webauthn_req_;
-  mResponseHead->GetHeader(nsHttp::WebAuthn_Req, webauthn_req_);
-
-  SetSecureWebAuthnParams(webauthn_req_);
-
-  printf("intercepting webauthn header");
-  printf(("%s\n", webauthn_req.get()));
 
   // notify "http-on-examine-response" observers
   gHttpHandler->OnExamineResponse(this);
